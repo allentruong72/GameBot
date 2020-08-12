@@ -1,1 +1,2 @@
-"# GameBot" 
+# GameBot
+Discord bot

@@ -1,0 +1,24 @@
+{
+  "name": "gamebot",
+  "version": "1.0.0",
+  "description": "\"# GameBot\"",
+  "main": "index.js",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/allentruong72/GameBot.git"
+  },
+  "author": "allentruong72",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/allentruong72/GameBot/issues"
+  },
+  "homepage": "https://github.com/allentruong72/GameBot#readme",
+  "devDependencies": {
+    "eslint": "^7.6.0"
+  },
+  "dependencies": {
+    "discord.js": "^12.2.0"
+  }
+}
