@@ -4,6 +4,8 @@
   "description": "\"# GameBot\"",
   "main": "index.js",
   "scripts": {
+    "start": "node .",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -19,6 +21,7 @@
     "eslint": "^7.6.0"
   },
   "dependencies": {
-    "discord.js": "^12.2.0"
+    "discord.js": "^12.2.0",
+    "node-fetch": "^2.6.0"
   }
 }
