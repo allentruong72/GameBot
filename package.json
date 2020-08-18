@@ -21,7 +21,9 @@
     "eslint": "^7.6.0"
   },
   "dependencies": {
+    "canvas": "^2.6.1",
     "discord.js": "^12.2.0",
+    "moment": "^2.27.0",
     "node-fetch": "^2.6.0"
   }
 }

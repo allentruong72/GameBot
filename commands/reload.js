@@ -4,7 +4,7 @@ module.exports = {
   execute(message, args) {
     const commandName = args[0].toLowerCase();
     const command =
-      message.client.get(commandName) ||
+      message.client.commands.get(commandName) ||
       message.client.commands.find(
         (cmd) => cmd.aliases && cmd.aliases.includes(commandName)
       );
@@ -14,13 +14,13 @@ module.exports = {
         `There is no command with name or alias \`${commandName}\`.`
       );
 
-    delete require.cache[require.resolve(`./${commandName}.js`)];
-    message.client.commands.delete(commandName);
+    delete require.cache[require.resolve(`./${command.name}.js`)];
+    message.client.commands.delete(command.name);
 
     try {
-      const newCommand = require(`./${commandName}.js`);
+      const newCommand = require(`./${command.name}.js`);
       message.client.commands.set(newCommand.name, newCommand);
-      message.reply(`The command ${commandName} has been reloaded`);
+      message.reply(`The command ${command.name} has been reloaded`);
     } catch (error) {
       console.log(error);
       message.reply(`There was an error trying to reload ${commandName}`);
