@@ -1,6 +1,7 @@
 module.exports = {
   name: "reload",
   description: "reloads a command",
+  usage: "[command name]",
   execute(message, args) {
     const commandName = args[0].toLowerCase();
     const command =
