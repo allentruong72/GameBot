@@ -1,7 +1,7 @@
 {
   "name": "gamebot",
   "version": "1.0.0",
-  "description": "\"# GameBot\"",
+  "description": "\"# discord bot that provides information about games\"",
   "main": "index.js",
   "scripts": {
     "start": "node .",
@@ -12,7 +12,7 @@
     "url": "git+https://github.com/allentruong72/GameBot.git"
   },
   "author": "allentruong72",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/allentruong72/GameBot/issues"
   },
