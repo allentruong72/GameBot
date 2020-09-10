@@ -121,3 +121,6 @@ dist
 
 # Config file
 config.json
+
+# Database file
+database.sqlite

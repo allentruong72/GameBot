@@ -2,18 +2,15 @@ const Canvas = require("canvas");
 const Discord = require("discord.js");
 const fetch = require("node-fetch");
 const moment = require("moment");
+const { Perks } = require("../dbObjects");
 
 module.exports = {
   name: "shrineofsecrets",
   description: "Gets the current available perks from the shrine of secrets",
   aliases: ["shrine", "sos"],
   async execute(message) {
-    const perkBaseImgURL = "https://dbd-stats.info/data/Public/";
-
-    // fetch info about all the perks to get the perk image
-    const perks = await fetch(
-      "https://dbd-stats.info/api/perks?branch=live"
-    ).then((response) => response.json());
+    const perkBaseImgURL =
+      "https://raw.githubusercontent.com/dearvoodoo/dbd/master/Perks/";
 
     // fetch the current perks in the shrine
     const shrinePerks = await fetch(
@@ -39,8 +36,17 @@ module.exports = {
       shrineEmbed.addField("\u200B", "\u200B");
       shrineEmbed.addField(perk.Name, `${perk.cost[0].price} Shards`);
       // load the perk image and add it to the canvas
+
+      // find the name tag of the perk
+      const perkInfo = await Perks.findOne({
+        where: {
+          name: perk.Name,
+        },
+      });
+
+      // load the image
       const perkImage = await Canvas.loadImage(
-        perkBaseImgURL + perks[perk.id].iconPathList[0]
+        perkBaseImgURL + `${perkInfo.name_tag}.png`
       );
       ctx.drawImage(perkImage, imageX, 0, 250, 250);
       imageX += 250;
