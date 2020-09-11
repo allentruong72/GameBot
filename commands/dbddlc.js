@@ -161,6 +161,9 @@ async function generateDLCList(dlcList, message, targetUser = "") {
       if (currentPage < dlcListEmbeds.length - 1) {
         // increments current page and edits the message to show the next DLC embed
         currentPage++;
+        dlcEmbedMessage.content = `Current Page: ${currentPage + 1}/${
+          dlcListEmbeds.length
+        }\n`;
         dlcEmbedMessage.embed = dlcListEmbeds[currentPage];
         dlcEmbed.edit(dlcEmbedMessage);
       }
@@ -170,6 +173,9 @@ async function generateDLCList(dlcList, message, targetUser = "") {
       if (currentPage !== 0) {
         // decrements current page and edits message to show the previos DLC embed
         currentPage--;
+        dlcEmbedMessage.content = `Current Page: ${currentPage + 1}/${
+          dlcListEmbeds.length
+        }\n`;
         dlcEmbedMessage.embed = dlcListEmbeds[currentPage];
         dlcEmbed.edit(dlcEmbedMessage);
       }
