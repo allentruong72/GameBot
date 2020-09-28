@@ -19,7 +19,7 @@ const force = process.argv.includes("--force") || process.argv.includes("-f");
 async function createPerkObjects(roleName) {
   // get the list of all Dead by Daylight Perks
   const perkList = await fetch(
-    "https://bridge.buddyweb.fr/api/dbd/perks?lang=en"
+    "https://dbd-api.herokuapp.com/perks?lang=en"
   ).then((response) => response.json());
 
   // filter perks by survivor or by killer
@@ -30,13 +30,13 @@ async function createPerkObjects(roleName) {
 
   // get a list of survivor or killer to find the DLC they are associated with
   const roleList = await fetch(
-    `https://bridge.buddyweb.fr/api/dbd/${roleName.toLowerCase()}`
+    `https://dbd-api.herokuapp.com/${roleName.toLowerCase()}`
   ).then((response) => response.json());
 
   // add the base game to the DLC list
   roleList.push({
     name: "All",
-    isptb: "false",
+    is_ptb: false,
     dlc: "Base Game",
     dlc_id: 381210,
   });
@@ -46,7 +46,7 @@ async function createPerkObjects(roleName) {
   // for every character
   for (const role of roleList) {
     // filter the perk list by the character
-    if (role.isptb === "false") {
+    if (role.is_ptb === false) {
       const rolePerks = perkRoleList.filter((perk) => perk.name === role.name);
 
       // for each perk associated with the character create a perk object and add it into the row
@@ -73,10 +73,10 @@ async function createPerkObjects(roleName) {
 async function createDLCObjects() {
   // get the list of survivors and killers in Dead by Daylight
   const survivorList = await fetch(
-    "https://bridge.buddyweb.fr/api/dbd/survivors"
+    "https://dbd-api.herokuapp.com/survivors"
   ).then((response) => response.json());
   const killerList = await fetch(
-    "https://bridge.buddyweb.fr/api/dbd/killers"
+    "https://dbd-api.herokuapp.com/killers"
   ).then((response) => response.json());
 
   const dbdDLC = [];
@@ -84,7 +84,7 @@ async function createDLCObjects() {
 
   // find the DLC the survivors are associated with
   for (const survivor of survivorList) {
-    if (!(survivor.dlc.trim() in dbdObject) && survivor.isptb === "false") {
+    if (!(survivor.dlc.trim() in dbdObject) && survivor.is_ptb === false) {
       dbdObject[survivor.dlc.trim()] = survivor.dlc_id;
       dbdDLC.push(
         DLC.upsert({ name: survivor.dlc.trim(), app_id: survivor.dlc_id })
@@ -94,7 +94,7 @@ async function createDLCObjects() {
 
   // find the DLC the killers are associated with
   for (const killer of killerList) {
-    if (!(killer.dlc.trim() in dbdObject) && killer.isptb === "false") {
+    if (!(killer.dlc.trim() in dbdObject) && killer.is_ptb === false) {
       dbdObject[killer.dlc.trim()] = killer.dlc_id;
       dbdDLC.push(
         DLC.upsert({ name: killer.dlc.trim(), app_id: killer.dlc_id })
